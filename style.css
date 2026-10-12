@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #080b18;
+    --primary: #8b5cf6;
+    --secondary: #22d3ee;
+    --text: #f8fafc;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    overflow-x: hidden;
+    background:
+        radial-gradient(ellipse at 15% 20%, #312e8135, transparent 40%),
+        radial-gradient(ellipse at 85% 80%, #0891b235, transparent 40%),
+        var(--bg);
+    color: var(--text);
+    position: relative;
+}
+
+/* Mouse-following glow */
+body::before {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        #8b5cf630,
+        #22d3ee10,
+        transparent 70%
+    );
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    transition: left 0.12s ease-out, top 0.12s ease-out;
+}
+
+/* Main card */
+.container {
+    width: 100%;
+    max-width: 650px;
+    padding: 45px;
+    position: relative;
+    z-index: 1;
+    border: 1px solid #ffffff18;
+    border-radius: 28px;
+    background: linear-gradient(
+        145deg,
+        #ffffff0d,
+        #ffffff04
+    );
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 25px 80px #00000050,
+        inset 0 1px 0 #ffffff12;
+    animation: cardEntrance 0.9s ease both;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow:
+        0 30px 90px #00000060,
+        0 0 35px #8b5cf615;
+}
+
+/* Heading */
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -1.5px;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #a78bfa,
+        #67e8f9,
+        #ffffff
+    );
+    background-size: 250% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradientFlow 5s linear infinite;
+}
+
+.container > p {
+    margin: 14px 0 32px;
+    color: #a5b4cf;
+    text-align: center;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* Question input */
+input {
+    width: 100%;
+    padding: 18px 20px;
+    border: 1px solid #ffffff20;
+    border-radius: 14px;
+    outline: none;
+    background: #080b18b8;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+input::placeholder {
+    color: #71809c;
+}
+
+input:focus {
+    border-color: var(--secondary);
+    box-shadow:
+        0 0 0 4px #22d3ee12,
+        0 0 25px #22d3ee20;
+    transform: translateY(-2px);
+}
+
+/* Animated button */
+button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 17px;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        110deg,
+        #7c3aed,
+        #6366f1,
+        #0891b2
+    );
+    background-size: 200% 100%;
+    box-shadow: 0 8px 25px #6366f130;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: buttonGradient 5s ease infinite;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ffffff55,
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+}
+
+button:hover::before {
+    left: 150%;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 35px #6366f150;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: wait;
+    transform: none;
+}
+
+/* Answer section */
+.answer-box {
+    margin-top: 30px;
+    padding: 25px;
+    border: 1px solid #ffffff12;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #8b5cf60c, #22d3ee08);
+    min-height: 130px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.answer-box:hover {
+    border-color: #8b5cf655;
+    transform: translateY(-3px);
+}
+
+.answer-box h2 {
+    font-size: 17px;
+    margin-bottom: 15px;
+    color: #a5b4fc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.answer-box h2::before {
+    content: "✦";
+    color: #67e8f9;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+#answer {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+#answer:not(:empty) {
+    animation: answerReveal 0.5s ease both;
+}
+
+/* Animations */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes gradientFlow {
+    to {
+        background-position: 250% center;
+    }
+}
+
+@keyframes buttonGradient {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+@keyframes answerReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.25) rotate(15deg);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 16px;
+    }
+
+    .container {
+        padding: 28px 22px;
+        border-radius: 22px;
+    }
+
+    .container > p {
+        margin-bottom: 25px;
+    }
+
+    .answer-box {
+        padding: 20px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+```
